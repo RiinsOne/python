@@ -1,0 +1,22 @@
+sudo apt-get install postgresql pgadmin3
+
+sudo -u postgres psql  # перейти в консоль базы данных
+    \password  # меняем пароль
+    CREATE DATABASE test;  # создать базу данных
+    \l  # посмотреть все имеющиеся базы данных
+    \q  # выйти
+
+
+# установка orm
+# открываем pip, peewee-orm, psycopg2-driver, psycopg2-binary - модуль psycopg2
+pip install peewee psycopg2 psycopg2-binary
+
+
+# dump linux
+pg_dump --help
+pg_dump -U postgres -h localhost test > coins.sql  # сохранится там, откуда открыта консоль
+
+# dump win cmd
+# cd C:\Program Files\PostgreSQL\10\bin  # или прописать в path
+pg_dump -U postgres -h localhost test > c:\coins.sql
+

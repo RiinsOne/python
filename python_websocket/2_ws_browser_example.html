@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocket demo</title>
+    </head>
+    <body>
+        <div>
+            <span id="datetime"></span>
+        </div>
+        <script>
+            var ws = new WebSocket("ws://127.0.0.1:5678/");
+
+            ws.onmessage = function (event) {
+                var span = document.getElementById("datetime"),
+                    // content = document.createTextNode(event.data)
+                    myJSON = JSON.parse(event.data);
+
+                span.textContent = myJSON.value;
+            }
+        </script>
+    </body>
+</html>

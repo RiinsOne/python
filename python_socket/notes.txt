@@ -1,0 +1,9 @@
+http
+
+tcp - port
+ip - Ip-address
+
+пара ip адрес и порт называется сокет - socket (гнездо)
+ip-address:5000 - socket
+
+сокеты бывают серверные и клиентские

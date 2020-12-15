@@ -1,0 +1,24 @@
+Python 3.7.2 (tags/v3.7.2:9a3ffc0492, Dec 23 2018, 22:20:52) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from django.db import models
+>>> from django.conf import settings
+>>> from instructors.models import Instructor
+>>> i = Instructor.objects.get(id=1)
+>>> i
+<Instructor: Aleksey Radchenko>
+>>> i.name
+'Aleksey'
+>>> i.name = "Alexey"
+>>> i
+<Instructor: Alexey Radchenko>
+>>>
+# но запись в базу данных не занесено
+
+i.save()  # для синхронизации в базу данных
+
+>>> i.is_active = False
+>>> i.save()
+>>> i.is_active = True
+>>> i.save()
+

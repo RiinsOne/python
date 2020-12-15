@@ -1,0 +1,200 @@
+﻿https://nicothin.pro/Atom/Atom-hotkeys.html  # atom hotkeys
+https://getbootstrap.com/docs/4.3/components/alerts/
+
+mkdir somefolder
+cd somefolder
+
+virtualenv venv
+source venv/bin/activate
+
+pip install django  # установить django
+# pip install django==1.10.3
+pip freeze
+
+mkdir app
+cd app
+
+django-admin startproject blogengine  # создаст папку blogengine со всем необходимым
+
+
+
+cd blogengine
+python manage.py startapp blog  # создаст приложение blog
+# делать в той директории, где manage.py
+
+
+# Модель Django
+Model
+View
+Controller
+
+
+./manage.py runserver 5000  # запустить сервер
+./manage.py migrate  # выполнить миграцию
+./manage.py runserver 5000
+http://127.0.0.1:5000/
+
+./manage.py makemigrations  # внести изменения в базу данных (создать файлы миграции)
+./manage.py migrate  # применить миграции
+
+./manage.py shell  # перейти в консоль джанго
+    from blog.models import Post
+    p = Post(title='New post', slug='new-slug', body='new post body')
+    p  # (Post: New post)
+    p.id
+    p.title  # 'New post'
+    p.save()
+    p.id  # 1
+    dir(p)
+
+    p1 = Post.objects.create(title='new post2', slug='new-post2', body='body')
+    p1  # <Post: new post2>
+    Post.objects.all()  # <QuerySet [<Post: New post>, <Post: new post2>]>
+    p1.id  # 2
+
+    post = Post.objects.get(slug='new-slug')
+    post  # <Post: New post>
+    # метод get чувствителен к регистру
+
+    post = Post.objects.get(slug__iexact='New-slug')  # не чувствителен к регистру
+
+    post = Post.objects.get(slug_contains='new')
+    # покажет, что нашел два объекта у которого в slug есть new
+    post = Post.objects.filter(slug_contains='new')
+    # <QuerySet [<Post: New post>, <Post: new post2>]>
+
+    p1 = Post.objects.create(title='post 3', slug='new-post-3', body='body')
+    p2 = Post.objects.create(title='post 4', slug='new-post-4', body='body')
+    p2 = Post.objects.create(title='post 5', slug='new-post-5', body='body')
+
+
+
+
+
+
+
+
+# файл с зависимостями в виртуальных окружений
+# нужно, чтобы знать какие пакеты установлены
+Django==1.10.3
+# pip install -r requirements.txt
+# установить все пакеты с файла с зависимостями
+
+# все файлы в проекте должны быть добавлены в репозитории
+
+django-admin startproject hello
+python manage.py runserver  # http://127.0.0.1:8000/
+
+./manage.py startapp instructors
+# .\manage.py startapp instructors - в win
+# создать приложение
+
+python manage.py migrate
+
+# после описания модели
+python manage.py makemigrations
+# Migrations for 'instructors':
+#  instructors\migrations\0001_initial.py:
+#    - Create model Instructor
+python manage.py migrate # в конце делается
+# теперь можно зайти в shell и посмотреть
+
+
+# set PATH=%PATH%;C:\sqlite;
+# для sqlite
+
+python manage.py createsuperuser
+# создать суперпользователя
+
+{
+    "explorer.confirmDelete": false,
+    "editor.fontSize": 16,
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django"
+    ],
+}
+
+
+# была создана вторая миграция - 0002_auto_20190715_2115.py
+# но структура базы не поменяется, можно проверить - python manage.py dbshell -> .tables -> .schema tablename
+python manage.py makemigrations
+Migrations for 'instructors':
+  instructors\migrations\0002_auto_20190715_2115.py:
+    - Remove field course from instructor
+    - Add field data_of_birth to instructor
+    - Add field email to instructor
+    - Alter field name on instructor
+
+
+# показать все миграции
+python manage.py showmigrations
+admin
+ [X] 0001_initial
+ [X] 0002_logentry_remove_auto_add
+auth
+ [X] 0001_initial
+ [X] 0002_alter_permission_name_max_length
+ [X] 0003_alter_user_email_max_length
+ [X] 0004_alter_user_username_opts
+ [X] 0005_alter_user_last_login_null
+ [X] 0006_require_contenttypes_0002
+ [X] 0007_alter_validators_add_error_messages
+ [X] 0008_alter_user_username_max_length
+contenttypes
+ [X] 0001_initial
+ [X] 0002_remove_content_type_name
+instructors  # initial применена, а 0002 ещё нет
+ [X] 0001_initial
+ [ ] 0002_auto_20190715_2115
+sessions
+ [X] 0001_initial
+
+# применить миграцию
+python manage.py migrate instructors
+# апликацию можно не указывать в явном виде
+
+# если уже существуют таблицы
+python manage.py migrate --fake instructors
+
+
+# qs = Instructor.objects.filter(is_active__exact=True)
+# __exact - точно равно, прямое соответствие, применяется по умолчанию, в явном виде не используется
+
+# qs = Instructor.objects.filter(id__in=[4, 5])
+# qs = Instructor.objects.filter(name__startswith='A')
+# расширение нашей возможности фильтрации
+
+#
+
+{# this is one line comment #}
+
+{% comment %}
+парный коммент
+{% endcomment %}
+
+{% filter title %}
+{# this is one line comment #}
+{{ all_instructors.0 }}
+This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+{% endfilter %}
+
+
+{% if courses %}
+{% for course in courses %}
+{{ course.name }}
+{% endfor %}
+{% else %}
+Нет ниодного курса
+{% endif %}
+
+
+{% if firloop.first %}
+First
+{% elif forloop.last %}
+Last
+{% else %}
+{{ forloop.counter }}
+{% endif %}
+
+{% cycle '-' '+' %}
+

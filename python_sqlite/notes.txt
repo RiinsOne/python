@@ -1,0 +1,126 @@
+# внести данные
+INSERT INTO users VALUES('Михаил', 1, 19, 1000)
+
+# внести данные только по тром столбцам, остальные столбцы примут значения по умолчанию
+INSERT INTO users (name, old, score) VALUES('Федор', 32, 200)
+
+# отобразить все строки указанные столбцов
+SELECT name, old, score FROM users
+
+# выбрать игроков, где счет меньше 1000
+SELECT * FROM users WHERE score < 1000
+
+# значит между включаю 500 и 1000
+SELECT * FROM users WHERE score BETWEEN 500 and 1000
+
+#
+SELECT * FROM users WHERE old > 20 AND score < 1000
+
+# возраст 19 или 32 и кол-во очков меньше 1000
+SELECT * FROM users WHERE old IN(19, 32) AND score < 1000
+
+# или пол равен единице, приоритет выше у AND
+SELECT * FROM users WHERE old IN(19, 32) AND score < 1000 OR sex = 1
+
+# сначла приоритет в круглых скобках, потом сравнивание с AND
+SELECT * FROM users WHERE old IN(19, 32) AND (score < 1000 OR sex = 1)
+
+# сортировка по возрасту, если указать явно, то ORDER BY old ASC
+SELECT * FROM users
+WHERE old IN(19, 32) AND score < 1000 OR sex = 1
+ORDER BY old
+
+# сортировка по убыванию
+SELECT * FROM users
+WHERE old IN(19, 32) AND score < 1000 OR sex = 1
+ORDER BY old DESC
+
+# отобразить первые две записи
+SELECT * FROM users
+WHERE old IN(19, 32) AND score < 1000 OR sex = 1
+ORDER BY old DESC
+LIMIT 2
+
+# первые две записи пропустить и выбрать следующие 5
+SELECT * FROM users
+WHERE score > 100 ORDER BY score DESC
+LIMIT 5 OFFSET 2
+
+# тоже самое, что LIMIT 5 OFFSET 2
+SELECT * FROM users
+WHERE score > 100 ORDER BY score DESC
+LIMIT 2, 5
+
+##############################
+
+# обновить записи, в таблице users проставить всем score равным нулю
+UPDATE users SET score = 0
+
+# обновить только для rowid = 1
+UPDATE users SET score = 1000 WHERE rowid = 1
+
+# для женского пола увеличить очки на 500
+UPDATE users SET score = score+500 WHERE sex = 2
+
+# LIKE - шаблоны
+UPDATE users SET score = 1500 WHERE name LIKE 'Федор'
+
+# Добавить всем по 100 очков, у кого имя начинается с М
+UPDATE users SET score = score+100 WHERE name LIKE 'М%'
+
+# ещё варианты шаблона, '_' - любой символ
+UPDATE users SET score = score+100 WHERE name LIKE 'С_рг%'
+
+# обновить возраст и кол-во очков
+UPDATE users SET score = 800, old = 45 WHERE old > 40
+
+# удалить rowid 2 и 5
+DELETE FROM users WHERE rowid IN (2, 5)
+
+##############################
+
+# вывести игры юзера 1
+SELECT user_id FROM games WHERE user_id = 1
+
+# count - общее количество, можно с пустым значением count()
+SELECT count(user_id) FROM games WHERE user_id = 1
+
+# использовать алиас, count() - агрегирующая функция, исполняется в последнюю очередь
+SELECT count() as count FROM games WHERE user_id = 1
+# count(), sum(), avr(), min(), max()
+
+# посчитать кол-во уникальных игроков
+SELECT count(DISTINCT user_id) as count FROM games
+
+# отобразить id уникальных игроков
+SELECT DISTINCT user_id as count FROM games
+
+# сумма очков игрока 1
+SELECT sum(score) as scores FROM games WHERE user_id = 1
+# или max, min
+
+# сумма очков для каждого игрока в отдельности
+SELECT user_id, sum(score) as sum
+FROM games
+GROUP BY user_id
+
+# сортировка по убыванию
+SELECT user_id, sum(score) as sum
+FROM games
+GROUP BY user_id
+ORDER BY sum DESC
+
+# груп бай где кол-во очков больше 300
+SELECT user_id, sum(score) as sum
+FROM games
+WHERE score > 300
+GROUP BY user_id
+ORDER BY sum DESC
+
+#
+SELECT user_id, sum(score) as sum
+FROM games
+WHERE score > 300
+GROUP BY user_id
+ORDER BY sum DESC
+LIMIT 1

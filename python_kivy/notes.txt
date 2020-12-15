@@ -1,0 +1,64 @@
+# установка kivy
+# https://kivy.org/doc/stable/installation/installation-windows.html
+
+# установка на Xubuntu 18.04
+# https://www.youtube.com/watch?v=IzKJgpJrrQU
+
+
+#:import MDLabel kivymd.label.MDLabel
+#:import MDTextField kivymd.textfields.MDTextField
+#:import MDRaisedButton kivymd.button.MDRaisedButton
+
+
+
+-----
+linux setup
+
+
+# kivy unable to find any valuable cutbuffer provider
+$ sudo apt-get install xclip xsel
+
+$ sudo add-apt-repository universe
+$ sudo add-apt-repository multiverse
+$ sudo apt update
+$ sudo apt-get install xclip xsel
+
+black@vbu-2c6r60h:~/Desktop/kivy_python$ ps aux | grep -i apt
+root       749  0.0  0.0   4624   772 ?        Ss   18:31   0:00 /bin/sh /usr/lib/apt/apt.systemd.daily update
+root       770  0.0  0.0   4624  1800 ?        S    18:31   0:00 /bin/sh /usr/lib/apt/apt.systemd.daily lock_is_held update
+black     7083  0.0  0.0  21532  1088 pts/1    S+   18:44   0:00 grep --color=auto -i apt
+black@vbu-2c6r60h:~/Desktop/kivy_python$ sudo kill -9 749 770
+[sudo] password for black: 
+kill: (770): No such process
+black@vbu-2c6r60h:~/Desktop/kivy_python$ ps aux | grep -i apt
+black     7087  0.0  0.0  21532  1108 pts/1    S+   18:45   0:00 grep --color=auto -i apt
+black@vbu-2c6r60h:~/Desktop/kivy_python$ 
+
+$ sudo killall apt apt-get
+
+# if not helpled
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+sudo rm /var/lib/dpkg/lock-frontend
+
+sudo dpkg --configure -a
+
+sudo apt-get install xclip xsel -y
+
+
+
+# not needed
+
+apt update
+apt install python3-pip -y
+apt install libjpeg8-dev zlib1g-dev libtiff-dev libfreetype6 libfreetype6-dev libwebp-dev libopenjp2-7-dev libopenjp2-7-dev -y
+
+pip3 install pillow --global-option="build_ext" --global-option="--enable-zlib" --global-option="--enable-jpeg" --global-option="--enable-tiff" --global-option="--enable-freetype" --global-option="--enable-webp" --global-option="--enable-webpmux" --global-option="--enable-jpeg2000"
+
+
+# kivymd
+git clone https://github.com/kivymd/KivyMD.git --depth 1
+cd KivyMD
+pip install .
+

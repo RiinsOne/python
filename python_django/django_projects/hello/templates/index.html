@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Index template{% endblock title %}
+
+
+{% block some_x %}
+{% include 'include.html' %}
+{% endblock%}
+
+
+{% block main_content %}
+<p>
+    {% if courses %}
+
+    {% for i in courses %}
+    {{ i }}
+    {{ i.id }} |
+    {% endfor %}
+
+    {% else %}
+    Нет ниодного курса
+    {% endif %}
+</p>
+{% endblock main_content %}

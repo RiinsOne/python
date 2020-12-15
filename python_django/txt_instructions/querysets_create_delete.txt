@@ -1,0 +1,43 @@
+>>> from instructors.models import Instructor, Position, Coursename
+>>> Position.objects.create(name="Manager")
+<Position: Manager>
+# надо обязательно передавать все аргументы, в Position только одно - name
+
+>>> p = Position.objects.create(name="Developer")
+>>> p
+<Position: Developer>
+>>> p.name
+'Developer'
+>>> p.name = "Develop"
+>>> p.save()
+>>> p1 = Position()
+>>> p1
+<Position: >
+>>> p.id
+4
+>>> p1.id
+>>> p1.name
+''
+
+>>> p1.name = "Boss"
+>>> p1.id
+>>> p1.save()
+>>> p1.id
+5
+# альтернативный способ записи в базу данных
+
+
+# метод delete удаляет из базы данных
+>>> p = Position.objects.get(id=5)
+>>> p
+<Position: Boss>
+>>> p.delete()
+(1, {'instructors.Position': 1})
+# и возвращает информационную строку, что был удален 1 объект, с такого типа
+
+# выбираем кверисет и потом удаляем сразу несколько объектов из базы данных
+>>> qs = Position.objects.filter(id__in=[3,4])
+>>> qs
+<QuerySet [<Position: Manager>, <Position: Develop>]>
+>>> qs.delete()
+(2, {'instructors.Position': 2})

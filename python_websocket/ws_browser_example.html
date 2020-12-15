@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocket demo</title>
+    </head>
+    <body>
+        <!-- <script>
+            var ws = new WebSocket("ws://127.0.0.1:5678/"),
+                messages = document.createElement('ul');
+            ws.onmessage = function (event) {
+                var messages = document.getElementsByTagName('ul')[0],
+                    message = document.createElement('li'),
+                    content = document.createTextNode(event.data);
+                message.appendChild(content);
+                messages.appendChild(message);
+            };
+            document.body.appendChild(messages);
+        </script> -->
+        <div>
+            <span id="datetime"></span>
+        </div>
+        <!-- div с сообщениями -->
+        <div id="messages"></div>
+        <script>
+            var ws = new WebSocket("ws://127.0.0.1:5678/");
+
+            ws.onmessage = function (event) {
+                var span = document.getElementById("datetime"),
+                    // dateTimeList = [],
+                    content = document.createTextNode(event.data);
+                    // content1 = document.createTextNode(event.data);
+                    // content2 = document.createTextNode(event.data);
+                    // console.log(Object.keys(event));
+
+                // WORKS
+                // span.innerText = event.data;
+                span.textContent = event.data;
+
+                // dateTimeList.push(content)
+                // span.appendChild(dateTimeList[dateTimeList.length-1]);
+                // span.textContent = dateTimeList[dateTimeList.length-1];
+                // dateTimeList.shift()
+
+                // console.log(content)
+                // span.appendChild(content)
+                // span.textContent = content;
+                // console.log(Object.getOwnPropertyNames(content));
+                // span.appendChild = Object.getOwnPropertyNames(content);
+                // console.log(Object.keys(content));
+
+                // span.appendChild(content1);
+
+                // span.replaceChild(content1, content2);
+
+
+                // span.removeChild(span.firstChild);
+
+                // span.textContent = data.value;
+                // span.textContent = content.toString();
+                // console.log(typeof(content.toString()))
+
+                // WORKS
+                // let dateTime = event.data;
+                // document.getElementById('messages').innerHTML = dateTime;
+                // document.getElementById('messages').innerText = dateTime;
+            }
+        </script>
+    </body>
+</html>
