@@ -124,3 +124,32 @@ WHERE score > 300
 GROUP BY user_id
 ORDER BY sum DESC
 LIMIT 1
+
+##############################
+
+# JOIN для соединения двух таблиц, где таблица games - является первичной (JOIN по умолчанию - INNER JOIN)
+SELECT name, sex, games.score
+FROM games
+JOIN users ON games.user_id = users.rowid
+
+# в таком варианте отобразит записи по количеству строк в 'games' для каждого юзера
+SELECT name, sex, games.score
+FROM users, games
+
+# пример с груп бай
+SELECT name, sex, sum(games.score) as sum
+FROM games
+JOIN users ON games.user_id = users.rowid
+GROUP BY name
+
+# с LEFT JOIN по тем строкам в таблице games, где нет совпадения с таблицей users значения будут проставлены как NULL
+SELECT name, sex, games.score
+FROM games
+LEFT JOIN users ON games.user_id = users.rowid
+
+#
+SELECT name, sex, sum(games.score) as score
+FROM games
+JOIN users ON games.user_id = users.rowid
+GROUP BY name
+ORDER BY score DESC
