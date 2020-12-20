@@ -153,3 +153,62 @@ FROM games
 JOIN users ON games.user_id = users.rowid
 GROUP BY name
 ORDER BY score DESC
+
+##############################
+
+# объединит по порядку уникальные значения с первой таблицы, потом со второй
+SELECT score, `from` FROM tab1
+UNION SELECT val, type FROM tab2
+
+# отобразит только уникальные значения
+SELECT score FROM tab1
+UNION SELECT val FROM tab2
+
+# отобразит значения первой таблицы второй колонки в 'table 1' и выведет имя столбца как tbl, для второй таблицы значения второй колонки будут как 'table 2'
+SELECT score, 'table 1' as tbl FROM tab1
+UNION SELECT val, 'table 2' FROM tab2
+
+##############################
+
+# отобразить все оценки выше, чем у студента с id=2
+# первый способ выполнить первый запрос и во втором указать большее значение
+SELECT mark from marks
+WHERE id = 2 AND subject LIKE 'C'
+
+SELECT name, subject, mark from marks
+JOIN students ON students.id = marks.id
+WHERE mark > 3 AND subject LIKE 'C'
+
+# второй способ через вложенный запрос
+# во вложенных запросах можно использовать агрегирующие функции
+SELECT name, subject, mark from marks
+JOIN students ON students.id = marks.id
+WHERE mark > (
+	SELECT mark from marks
+	WHERE id = 2 AND subject LIKE 'C'
+)
+AND subject LIKE 'C'
+
+# вставить в таблицу female
+INSERT INTO female
+SELECT * from students WHERE sex = 2
+
+# если первое поле primary key, то через обозначение NULL поле автоматически автоинкремтируется
+INSERT INTO female
+SELECT NULL, name, sex, old from students WHERE sex = 2
+
+# обновит все оценки до 0, где mark меньше и равна минимальному значению у юзера id равным 1
+UPDATE marks SET mark = 0
+WHERE mark <= (
+	SELECT min(mark) FROM marks
+	WHERE id = 1
+)
+
+# удалить всех, у кого возраст меньше, чем у юзера id равным 2
+DELETE FROM students
+WHERE old < (
+	SELECT old FROM students
+	WHERE id = 2
+)
+
+##############################
