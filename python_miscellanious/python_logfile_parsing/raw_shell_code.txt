@@ -1,0 +1,158 @@
+
+
+
+
+In [20]: os.stat(file1)
+Out[20]: os.stat_result(st_mode=33206, st_ino=191684459139975613, st_dev=3801608200, st_nlink=1, st_uid=0, st_gid=0, st_size=134, st_atime=1617529673, st_mtime=1617529658, st_ctime=1617529163)
+
+In [21]: dir(os.stat(file1))
+
+
+
+
+
+In [22]: os.stat(file1).st_size
+Out[22]: 134
+
+In [23]: def read_log(file):
+    ...:     with open(file, 'r') as f:
+    ...:         while 1:
+    ...:             lines = f.readlines()
+    ...:             for line in lines:
+    ...:                 print(line.strip())
+    ...:                 print(f.tell())
+    ...:
+
+In [24]: read_log(file1)
+
+
+
+
+
+
+In [25]: os.stat(file1).st_size
+Out[25]: 224
+
+In [26]: with open(file1) as f:
+    ...:     f.seek(os.stat(file1).st_size)
+    ...:     lines = f.readlines()
+    ...:     for line in lines:
+    ...:         print(line)
+    ...:
+
+In [27]: os.stat(file1).st_size
+Out[27]: 284
+
+In [28]: with open(file1) as f:
+    ...:     f.seek(224)
+    ...:     lines = f.readlines()
+    ...:     for line in lines:
+    ...:         print(line)
+
+
+
+In [27]: os.stat(file1).st_size
+Out[27]: 284
+
+In [28]: with open(file1) as f:
+    ...:     f.seek(224)
+    ...:     lines = f.readlines()
+    ...:     for line in lines:
+    ...:         print(line)
+
+In [29]: prev_pos = os.stat(file1).st_size
+
+In [30]: with open(file1) as f:
+    ...:     f.seek(prev_pos)
+    ...:     lines = f.readlines()
+    ...:     for line in lines:
+    ...:         print(line)
+
+
+
+
+
+In [31]: import json
+
+In [32]: j1 = {'file_name': 'logfile.txt', 'file_path': 'C:\\Users\\Orkhan\\Desktop\\python_lo
+    ...: g', 'file_stat_position': None}
+In [25]: os.stat(file1).st_size
+Out[25]: 224
+
+In [26]: with open(file1) as f:
+    ...:     f.seek(os.stat(file1).st_size)
+    ...:     lines = f.readlines()
+    ...:     for line in lines:
+    ...:         print(line)
+    ...:
+
+In [33]: j1
+Out[33]:
+{'file_name': 'logfile.txt',
+ 'file_path': 'C:\\Users\\Orkhan\\Desktop\\python_log',
+ 'file_stat_position': None}
+
+In [34]: file1 = os.path.join(j1['file_path'], j1['file_name'])
+
+In [35]: file1
+Out[35]: 'C:\\Users\\Orkhan\\Desktop\\python_log\\logfile.txt'
+
+In [36]: j1['file_stat_position'] = os.stat(file1)
+
+In [37]: j1['file_stat_position']
+Out[37]: os.stat_result(st_mode=33206, st_ino=191684459139975613, st_dev=3801608200, st_nlink=1, st_uid=0, st_gid=0, st_size=350, st_atime=1617531399, st_mtime=1617531388, st_ctime=1617529163)
+
+In [38]: j1['file_stat_position'] = os.stat(file1).st_size
+
+In [39]: j1['file_stat_position']
+Out[39]: 350
+
+In [40]: json_conf = os.path.join(j1['file_path'], 'logfile_conf.json')
+
+In [41]: json_conf
+Out[41]: 'C:\\Users\\Orkhan\\Desktop\\python_log\\logfile_conf.json'
+
+In [42]: with open(json_conf, 'w') as f:
+    ...:     f.write(json.dumps(j1, sort_keys=False, indent=4, ensure_ascii=False))
+
+
+
+In [43]: def change_pos(file):
+    ...:     with open(file) as f:
+    ...:         json_obj = json.load(f)
+    ...:     print(json_obj)
+    ...:
+
+In [44]: change_pos(json_conf)
+{'file_name': 'logfile.txt', 'file_path': 'C:\\Users\\Orkhan\\Desktop\\python_log', 'file_stat_position': 555522225555555}
+
+In [45]: def change_pos(file, new_position):
+    ...:     with open(file) as f:
+    ...:         json_obj = json.load(f)
+    ...:     json_obj['file_stat_position'] = new_position
+    ...:     with open(file, 'w') as f:
+    ...:         f.write(json.dumps(json_obj, sort_keys=False, indent=4, ensure_ascii=False))
+    ...:
+
+In [46]: change_pos(json_conf, 333)
+
+In [47]: change_pos(json_conf, 445)
+
+In [48]:
+
+
+In [73]: getsizeof(list())
+Out[73]: 64
+
+In [74]: getsizeof(set())
+Out[74]: 224
+
+In [75]: getsizeof(dict())
+Out[75]: 240
+
+In [76]: getsizeof(tuple())
+Out[76]: 48
+
+In [77]: locals()
+
+
