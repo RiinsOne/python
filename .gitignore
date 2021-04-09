@@ -8,3 +8,4 @@ __pycache__/
 !/python_sqlite/database.sqlite3
 .venv/
 venv/
+chromedriver.exe
