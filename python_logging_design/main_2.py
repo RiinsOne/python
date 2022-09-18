@@ -16,6 +16,7 @@ console_handler.setFormatter(f)
 
 utils_logger = logging.getLogger('app_logger.utils')
 utils_logger.setLevel('DEBUG')
+# utils_logger.propagate = False  # отключить использование родительских хендлеров
 
 
 
