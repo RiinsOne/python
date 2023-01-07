@@ -4,8 +4,10 @@ logger_config = {
 
     'formatters': {
         'std_format': {
-            'format': '{asctime} - {levelname} - {name} - {module}:{funcName}:{lineno} - {message}',
-            'style': '{'
+            'format': '%(asctime)s.%(msecs)03d %(levelname)-8s %(module)s %(message)s',
+            # 'format': '{asctime}.{msecs:0<3.0f} - {levelname} - {pathname}:{lineno}\t{message}',
+            # 'style': '{',
+            'datefmt': '%d.%m.%Y %H:%M:%S'
         }
     },
     'handlers': {
