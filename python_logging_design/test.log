@@ -119,3 +119,7 @@
 07.01.2023 18:33:52.419    INFO        main_4    some error
 07.01.2023 18:33:52.419    CRITICAL    main_4    text test
 07.01.2023 18:33:52.421    WARNING     main_4    Traceback (most recent call last):  File "M:\Programs\workspace\python\python_logging_design\main_4.py", line 46, in main,     item.split(' '),     ^^^^^^^^^^, AttributeError: 'int' object has no attribute 'split'
+01.11.2023 23:26:19.187    DEBUG       main_4    -----
+01.11.2023 23:26:19.187    INFO        main_4    some error
+01.11.2023 23:26:19.187    CRITICAL    main_4    text test
+01.11.2023 23:26:19.189    WARNING     main_4    Traceback (most recent call last):  File "M:\Programs\workspace\python\python_logging_design\main_4.py", line 46, in main,     item.split(' '),     ^^^^^^^^^^, AttributeError: 'int' object has no attribute 'split'
